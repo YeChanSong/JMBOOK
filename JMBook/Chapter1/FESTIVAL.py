@@ -19,17 +19,19 @@ for i in range(C):
         li = cost[i][:j]
         tmpsum = sum(li)
         ptr = j
-
+        
         while 1:
-            print(li)
+            #print(li)
             #print(tmpsum/j)
-            if ptr == len(cost[i]):
-                break
+            
 			
             tmp = tmpsum/j
             if low > tmp:
                 low = tmp
 			
+            if ptr == len(cost[i]):
+                break
+            
             tmpsum -= li[0]
             del(li[0])
             #print(ptr)
