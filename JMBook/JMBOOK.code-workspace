@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"name": "Chapter1",
+			"path": "Chapter1"
+		},
+		{
+			"name": "Chapter6_Brute_force",
+			"path": "Chapter6_Brute_force"
+		},
+		{
+			"name": "Chapter10_Greedy",
+			"path": "Chapter10_Greedy"
+		}
+	]
+}
