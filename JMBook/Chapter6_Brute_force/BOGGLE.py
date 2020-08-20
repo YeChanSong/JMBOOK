@@ -2,11 +2,17 @@ import sys
 sys.setrecursionlimit(100000)
 
 def recur(boardnum,recurnum,letters):
-    '''boardnum: 게임판 번호, 
-       recurnum: 단어에서 찾아야 할 나머지 글자 수,
-       letters: 찾아야 할 글자들'''
+    '''
+    boardnum: 게임판 번호, 
+    recurnum: 단어에서 찾아야 할 나머지 글자 수,
+    letters: 찾아야 할 글자들
+    '''
     
-    pass
+    
+    
+    
+    
+    
 
 
 C = int(input())
