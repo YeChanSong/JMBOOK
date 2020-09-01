@@ -1,49 +1,68 @@
 import sys
 sys.setrecursionlimit(100000)
 
-def recur(boardnum,recurnum,letters):
+def recur(board, start, tofind):
     '''
-    boardnum: 게임판 번호, 
-    recurnum: 단어에서 찾아야 할 나머지 글자 수,
-    letters: 찾아야 할 글자들
+    board : 해당 테스트케이스의 게임판
+    start : 현재 위치 튜플
+    tofind : 남은 글자
     '''
+    y, x = start
+    if y < 0 or y > 4 or x < 0 or x > 4:
+        return None
+    # x,y 범위를 벗어난 경우 종료
+    if len(tofind) == 0:
+        return 'YES'
     
-    
-    
-    
-    
-    
+    if tofind[0] == board[y][x]:
+        a = recur(board,(y-1,x-1),tofind[1:])
+        b = recur(board,(y-1,x),tofind[1:])
+        c = recur(board,(y-1,x+1),tofind[1:])
+        d = recur(board,(y,x-1),tofind[1:])
+        e = recur(board,(y,x+1),tofind[1:])
+        f = recur(board,(y+1,x-1),tofind[1:])
+        g = recur(board,(y+1,x),tofind[1:])
+        h = recur(board,(y+1,x+1),tofind[1:])
+        if a == 'YES' or b == 'YES' or c == 'YES' or d == 'YES' or e == 'YES' or f == 'YES' or \
+            g == 'YES' or h == 'YES':
+                return 'YES'
+        else:
+            return 'NO'
 
-
+    
 C = int(input())
-# 테스트 케이스의 수
-GameBoard = list()
-# BOGGLE 게임 판
-N = list()
-# 각 케이스 별 찾을 글자 수 N
-Words = list()
-# 단어와 YES, NO를 묶을 dict를 저장할 Words 리스트
-count = list()
-# 단어의 수 저장할 리스트
-
+Board = []
+Words = []
+Nlist = []
 for i in range(C):
-    # 테스트 케이스 입력 처리
-    tmpBoard = list()
+    tmplist = []
     for j in range(5):
-        # 각 테스트 케이스 별 게임판 처리
-        tmpBoard.append(input())
-    GameBoard.append(tmpBoard)
-    # 단어의 수 cnt에 입력
-    cnt = int(input())
-    count.append(cnt)
-    tmpWords = dict()
-    for k in range(cnt):
-        # 단어 입력 처리
-        tmpWords[input()] = 'NO'
-    Words.append(tmpWords)
+        tmp = input()
+        tmplist.append(tmp)
+    Board.append(tmplist)
+    N = int(input())
+    Nlist.append(N)
+    tmplist = []
+    for k in range(N):
+        tmp = input()
+        tmplist.append(tmp)
+    Words.append(tmplist)
 
+
+# 여기서 부터 각 단어 검색
 for i in range(C):
-    # 각 테스트 케이스 처리
-    for j in range(count[i]):
-        # 단어 수 만큼 반복하며 만들 수 있는지 여부 확인
-        recur(i,len(Words[i][j]),Words[i][j])
+    for k in range(Nlist[i]):
+        for j in range(5):
+            for p in range(5):
+                ret = ''
+                if Board[i][j][p] == Words[i][k][0]:
+                    ret = recur(Board[i],(j,p),Words[i][k])
+                
+                if ret == 'YES':
+                    break
+            if ret == 'YES':
+                break
+        if ret == 'YES':
+            print(Words[i][k],ret)
+        else:
+            print(Words[i][k],'NO')
