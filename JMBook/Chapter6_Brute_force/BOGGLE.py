@@ -16,16 +16,30 @@ def recur(board, start, tofind):
     
     if tofind[0] == board[y][x]:
         a = recur(board,(y-1,x-1),tofind[1:])
+        if a == 'YES':
+            return 'YES'
         b = recur(board,(y-1,x),tofind[1:])
+        if b == 'YES':
+            return 'YES'
         c = recur(board,(y-1,x+1),tofind[1:])
+        if c == 'YES':
+            return 'YES'
         d = recur(board,(y,x-1),tofind[1:])
+        if d == 'YES':
+            return 'YES'
         e = recur(board,(y,x+1),tofind[1:])
+        if e == 'YES':
+            return 'YES'
         f = recur(board,(y+1,x-1),tofind[1:])
+        if f == 'YES':
+            return 'YES'
         g = recur(board,(y+1,x),tofind[1:])
+        if g == 'YES':
+            return 'YES'
         h = recur(board,(y+1,x+1),tofind[1:])
-        if a == 'YES' or b == 'YES' or c == 'YES' or d == 'YES' or e == 'YES' or f == 'YES' or \
-            g == 'YES' or h == 'YES':
-                return 'YES'
+        if h == 'YES':
+            return 'YES'
+        
         else:
             return 'NO'
 
@@ -66,3 +80,7 @@ for i in range(C):
             print(Words[i][k],ret)
         else:
             print(Words[i][k],'NO')
+
+
+
+
