@@ -1,39 +1,36 @@
 import sys
 sys.setrecursionlimit(1000000)
 
-def recur(set,num):
+def recur(freefriend):
     '''
-    set: 지정된 친구들
-    num: 짝을 지정할 친구
+    freefriend: 짝 결정 여부
     '''
     total = 0
-    global n, friend
-    if num >= n:
-        return 0
-    if len(set) == n:
+    global n,m,friends
+    findfriend = -1
+    for i in range(len(freefriend)):
+        if freefriend[i] == False:
+            findfriend = i
+            break
+    
+    if findfriend == -1:
         return 1
-    if num in set:
-        return recur(set,num+1)
-    
-    for i in range(num+1,n):
-        flag = False
-        if i not in set:
-            for j in range(len(friend)//2):
-                
-                if (friend[j*2] == num and friend[j*2+1] == i)\
-                    or (friend[j*2] == i and friend[j*2+1] == num):
-                        if flag == False:
-                            tmp = set.copy()
-                            tmp.append(num)
-                            tmp.append(i)
-                            #print(tmp)
-                            total += recur(tmp,num+1)
-                            flag = True
+    mate = findfriend +1
+    while mate < n:
+        if freefriend[mate] == True:
+            mate +=1
+            continue
         else:
-            total += recur(set,num+1)
+            if mate in friends[findfriend]:
+                freefriend[mate] = True
+                freefriend[findfriend] = True
+                total += recur(freefriend)
+                freefriend[mate] = False
+                freefriend[findfriend] = False
+        mate +=1
             
-    return total
     
+    return total
     
 
 C = int(input())
@@ -41,8 +38,21 @@ C = int(input())
 for i in range(C):
     global n, m
     n, m = map(int,input().split())
-    global friend
+    global friends
+    
+    freefriend = list(False for i in range(n))
+    friends = []
+    
     friend = list(map(int,input().split()))
-    empty = []
-    print(recur(empty,0))
-
+    for k in range(n):
+        tmp = []
+        friends.append(tmp)
+    for i in range(len(friend)//2):
+        a, b = friend[i*2], friend[i*2 +1]
+        if a > b:
+            a, b = b, a
+            friends[a].append(b)
+        else:
+            friends[a].append(b)
+                
+    print(recur(freefriend))
