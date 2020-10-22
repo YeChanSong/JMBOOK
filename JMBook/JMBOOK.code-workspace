@@ -11,6 +11,12 @@
 		{
 			"name": "Chapter10_Greedy",
 			"path": "Chapter10_Greedy"
+		},
+		{
+			"path": "Chapter7_Divide&Conquer"
+		},
+		{
+			"path": "Chapter19_Queue_Stack_Deque"
 		}
 	]
 }
