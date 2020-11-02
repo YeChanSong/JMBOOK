@@ -9,13 +9,19 @@
 			"path": "Chapter6_Brute_force"
 		},
 		{
+			"name": "Chapter7_Divide&Conquer",
+			"path": "Chapter7_Divide&Conquer"
+		},
+		{
+			"name": "Chapter8_Dynamic_Programming",
+			"path": "Chapter8_Dynamic_Programming"
+		},
+		{
 			"name": "Chapter10_Greedy",
 			"path": "Chapter10_Greedy"
 		},
 		{
-			"path": "Chapter7_Divide&Conquer"
-		},
-		{
+			"name": "Chapter19_Queue_Stack_Deque",
 			"path": "Chapter19_Queue_Stack_Deque"
 		}
 	]
