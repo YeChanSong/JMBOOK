@@ -1,3 +1,3 @@
-# AlgowithPy
+# 알고리즘 문제 해결 전
 
 start at 07.30.20
