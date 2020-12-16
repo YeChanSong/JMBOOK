@@ -1,68 +1,64 @@
 import sys
-sys.setrecursionlimit(10000000)
+sys.setrecursionlimit(10000)
 
 def recur(idx):
-    global cache, pi
-    if idx >= len(pi):
-        return 123456789
-    
+    global array, cache
+    if idx >= len(array):
+        return 0
     if cache[idx] != None:
         return cache[idx]
+    diff3, diff4, diff5 = 987654321,987564321,987654321
+    sub3 = array[idx:idx+3]
+    sub4 = array[idx:idx+4]
+    sub5 = array[idx:idx+5]
     
-    
-    diff = [123456789 for i in range(3)]
-    end = len(pi) - idx
-    if end > 2:
-        if pi[idx+0] == pi[idx+1] == pi[idx+2]:
-            diff[0] = 1
-        elif pi[idx+0] == pi[idx+2] != pi[idx+1]:
-            diff[0] = 4
-        elif abs(int(pi[idx+0]) - int(pi[idx+1])) == abs(int(pi[idx+1]) - int(pi[idx+2])) == 1:
-            diff[0] = 2
-        elif int(pi[idx+0]) - int(pi[idx+1]) == int(pi[idx+1]) - int(pi[idx+2]):
-            diff[0] = 5
+    if len(sub3) == 3:
+        if sum(sub3) == sub3[0]*3:
+            diff3 = 1
         else:
-            diff[0] = 10
-    if end > 3:
-        if pi[idx+0] == pi[idx+1] == pi[idx+2] == pi[idx+3]:
-            diff[1] = 1
-        elif pi[idx+0] == pi[idx+2] and pi[idx+1] == pi[idx+3]:
-            diff[1] = 4
-        elif abs(int(pi[idx+0]) - int(pi[idx+1])) == abs(int(pi[idx+1]) - int(pi[idx+2])) == \
-            abs(int(pi[idx+2]) - int(pi[idx+3])) == 1:
-            diff[1] = 2
-        elif int(pi[idx+0]) - int(pi[idx+1]) == int(pi[idx+1]) - int(pi[idx+2]) == int(pi[idx+2]) - int(pi[idx+3]):
-            diff[1] = 5
+            if (sub3[0] - sub3[1] == sub3[1] - sub3[2] == 1) or (sub3[0] - sub3[1] == sub3[1] - sub3[2] == -1):
+                diff3 = 2
+            elif sub3[0] == sub3[2]:
+                diff3 = 4
+            elif abs(sub3[0] - sub3[1]) == abs(sub3[1] - sub3[2]):
+                diff3 = 5
+            else:
+                diff3 = 10
+    
+    if len(sub4) == 4:
+        if sum(sub4) == sub4[0]*4:
+            diff4 = 1
         else:
-            diff[1] = 10
-    if end > 4:
-        if pi[idx+0] == pi[idx+1] == pi[idx+2] == pi[idx+3] == pi[idx+4]:
-            diff[2] = 1
-        elif pi[idx+0] == pi[idx+2] == pi[idx+4] and pi[idx+1] == pi[idx+3]:
-            diff[2] = 4    
-        elif abs(int(pi[idx+0]) - int(pi[idx+1])) == abs(int(pi[idx+1]) - int(pi[idx+2])) == \
-            abs(int(pi[idx+2]) - int(pi[idx+3])) == abs(int(pi[idx+3]) - int(pi[idx+4])) == 1:
-            diff[2] = 2
-        elif int(pi[idx+0]) - int(pi[idx+1]) == int(pi[idx+1]) - int(pi[idx+2]) ==\
-            int(pi[idx+2]) - int(pi[idx+3]) == int(pi[idx+3]) - int(pi[idx+4]):
-            diff[2] = 5
+            if (sub4[0] - sub4[1] == sub4[1] - sub4[2] == sub4[2] - sub4[3] == 1) or (sub4[0] - sub4[1] == sub4[1] - sub4[2] == sub4[2] - sub4[3] == -1):
+                diff4 = 2
+            elif sub4[0] == sub4[2] and sub4[1] == sub4[3]:
+                diff4 = 4
+            elif abs(sub4[0] - sub4[1]) == abs(sub4[1] - sub4[2]) == abs(sub4[2] - sub4[3]):
+                diff4 = 5
+            else:
+                diff4 = 10
+    
+    if len(sub5) == 5:
+        if sum(sub5) == sub5[0]*5:
+            diff5 = 1
         else:
-            diff[2] = 10
+            if (sub5[0] - sub5[1] == sub5[1] - sub5[2] == sub5[2] - sub5[3] == sub5[3] - sub5[4] == 1) or (sub5[0] - sub5[1] == sub5[1] - sub5[2] == sub5[2] - sub5[3] == sub5[3] - sub5[4] == -1):
+                diff5 = 2
+            elif sub5[0] == sub5[2] == sub5[4] and sub5[1] == sub5[3] :
+                diff5 = 4
+            elif abs(sub5[0] - sub5[1]) == abs(sub5[1] - sub5[2]) == abs(sub5[2] - sub5[3]) == abs(sub5[3] - sub5[4]):
+                diff5 = 5
+            else:
+                diff5 = 10
     
-    mdiff = min(diff)
-    
-    a = min(recur(idx+3),recur(idx+4),recur(idx+5))
-    if a == 123456789:
-        a = 0
-    
-    stp = mdiff + a
-    cache[idx] = stp
-    return stp
-    
+    tmp = min(recur(idx+3)+diff3, recur(idx+4)+diff4, recur(idx+5)+diff5)
+    cache[idx] = tmp
+    return tmp
+
 
 C = int(sys.stdin.readline().strip())
 for i in range(C):
-    pi = sys.stdin.readline().strip()
-    cache = [None for i in range(len(pi))]
+    array = list(map(int,sys.stdin.readline().strip()))
+    cache = [None for i in range(len(array))]
     ans = recur(0)
     print(ans)
