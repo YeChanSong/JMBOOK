@@ -6,25 +6,17 @@ def precalc(n):
     srtd = tuple(i for i in range(n))
     q = deque()
     q.append(srtd)
-    toSort.setdefault(srtd,0)
+    toSort[srtd] = 0
     while len(q) != 0:
         here = q.popleft()
         cost = toSort[here]
-        here = list(here)
         for i in range(n):
             for j in range(i+2,n+1):
-                tmp = here[i:j]
-                tmp.reverse()
-                for k in range(j-i):
-                    here[i+k] = tmp[k]
-                if toSort.get(tuple(here)) == None:
-                    toSort.setdefault(tuple(here),cost+1)
-                    q.append(tuple(here))
-                tmp = here[i:j]
-                tmp.reverse()
-                for k in range(j-i):
-                    here[i+k] = tmp[k]
-    
+                tmp = here[:i] + here[i:j][::-1] + here[j+1:]
+                if not tmp in toSort:
+                    toSort.setdefault(tmp,cost+1)
+                    q.append(tmp)
+                
 def solve(perm):
     global toSort
     n = len(perm)
